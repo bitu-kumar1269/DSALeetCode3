@@ -25,6 +25,7 @@ class Solution {
         if(head == null || head.next == null){
             return true;
         }
+        //find middle node of LinkedList
         ListNode slow = head;
         ListNode fast = head;
         while(fast != null && fast.next != null){
@@ -35,11 +36,12 @@ class Solution {
         ListNode secondHead = reverseLL(slow);
         ListNode firstHead = head;
 
-        // ListNode copySecondHead = secondHead;
+        //compare the reverse node and real node
         boolean result = true;
         while(secondHead != null){
             if(firstHead.val != secondHead.val){
                 result = false;
+                break;
             }
             firstHead = firstHead.next;
             secondHead = secondHead.next;

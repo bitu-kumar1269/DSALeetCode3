@@ -17,7 +17,7 @@ class Solution {
 
             for(int j = i + 1; j < n; j++) {
 
-                long diff = 1L * nums[j] - nums[i];
+                long diff =  nums[j] - nums[i];
 
                 if(-target <= diff && diff <= target) {
 

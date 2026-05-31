@@ -6,6 +6,8 @@ class Solution {
         for(int i=0; i<n; i++){
             if(Mass < asteroids[i]){
                 return false;
+            }else if(Mass >= 100000){
+                return true;
             }
             Mass += asteroids[i];
         }

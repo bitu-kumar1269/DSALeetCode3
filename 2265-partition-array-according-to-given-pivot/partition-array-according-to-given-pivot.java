@@ -4,9 +4,9 @@ class Solution {
         int[] result = new int[n];
         int idx = 0;
 
-        for(int i=0; i<n; i++){
-            if(nums[i] < pivot){
-                result[idx++] = nums[i];
+        for(int num: nums){
+            if(num < pivot){
+                result[idx++] = num;
             }
         }
         for(int num: nums){
@@ -14,9 +14,9 @@ class Solution {
                 result[idx++] = num;
             }
         }
-        for(int i=0; i<n; i++){
-            if(nums[i] > pivot){
-                result[idx++]=nums[i];
+        for(int num: nums){
+            if(num > pivot){
+                result[idx++]=num;
             }
             
         }

@@ -8,7 +8,8 @@ class Solution {
             if(num < min) min = num;
         }
         System.out.print(min);
-        int res = max - min;
-        return 1l * res * k;
+        long res = 1L *(max - min) * k;
+        // return 1l * res * k;
+        return res;
     }
 }

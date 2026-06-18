@@ -9,9 +9,7 @@ class Solution {
                 sum = 0;
             } 
             sum += nums[i];
-            if(sum > maxSum){
-                maxSum= sum;
-            }    
+            maxSum = Math.max(maxSum, sum);    
         }
         return maxSum;
     }

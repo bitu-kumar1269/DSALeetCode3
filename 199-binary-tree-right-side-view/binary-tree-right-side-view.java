@@ -16,34 +16,22 @@
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-        
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode currentNode = queue.poll();
-                
-                // If it's the last element of the current level, add it to the result
-                if (i == levelSize - 1) {
-                    result.add(currentNode.val);
-                }
-                
-                // Add child nodes to the queue for the next level
-                if (currentNode.left != null) {
-                    queue.add(currentNode.left);
-                }
-                if (currentNode.right != null) {
-                    queue.add(currentNode.right);
-                }
-            }
-        }
-        
+        dfs(root, 0, result);
         return result;
+    }
+    
+    private void dfs(TreeNode node, int depth, List<Integer> result) {
+        if (node == null) {
+            return;
+        }
+        
+        // If this is the first time we've reached this depth, add the node
+        if (depth == result.size()) {
+            result.add(node.val);
+        }
+        
+        // Crucial: Go RIGHT first, then LEFT
+        dfs(node.right, depth + 1, result);
+        dfs(node.left, depth + 1, result);
     }
 }

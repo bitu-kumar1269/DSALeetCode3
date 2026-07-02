@@ -1,34 +1,32 @@
-import java.util.*;
-
 class Solution {
     public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
-        // Use boolean arrays to keep track of existing numbers (offset by 1000 for negative numbers)
-        boolean[] exist1 = new boolean[2001];
-        boolean[] exist2 = new boolean[2001];
-        
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums1 == null || nums2 == null) {
+            return res;
+        }
+        res.add(new ArrayList<>());
+        res.add(new ArrayList<>());
+
+        int[] hash1 = new int[2001];
         for (int num : nums1) {
-            exist1[num + 1000] = true;
+            hash1[num + 1000] = 1;
         }
+        int[] hash2 = new int[2001];
         for (int num : nums2) {
-            exist2[num + 1000] = true;
+            hash2[num + 1000] = 1;
         }
-        
-        List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-        
-        // Scan through the valid range [-1000, 1000]
-        for (int i = 0; i <= 2000; i++) {
-            if (exist1[i] && !exist2[i]) {
-                list1.add(i - 1000); // Revert the offset
-            } else if (exist2[i] && !exist1[i]) {
-                list2.add(i - 1000);
+        for (int num : nums1) {
+            if (hash2[num + 1000] == 0) {
+                res.get(0).add(num);
+                hash2[num + 1000] = 1;
             }
         }
-        
-        List<List<Integer>> answer = new ArrayList<>();
-        answer.add(list1);
-        answer.add(list2);
-        
-        return answer;
+        for (int num : nums2) {
+            if (hash1[num + 1000] == 0) {
+                res.get(1).add(num);
+                hash1[num + 1000] = 1;
+            }
+        }
+        return res;
     }
 }

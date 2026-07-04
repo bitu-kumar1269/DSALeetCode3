@@ -1,33 +1,41 @@
 class Solution {
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for(int num: nums){
-            map.put(num, map.getOrDefault(num, 0)+ 1);
-        }
-
-        List<Integer>[] bucket = new List[nums.length +1];
-        for(int key: map.keySet()){
-            int freq = map.get(key);
-            if(bucket[freq] == null){
-                bucket[freq] = new ArrayList<>();
-            }
-            bucket[freq].add(key);
-        }
-
-        int[] res = new int[k];
-        int count = 0;
-
-        for(int i=bucket.length -1; i>=0 && count < k; i--){
-            if(bucket[i] != null){
-                for(int n: bucket[i]){
-                    res[count++] = n;
-                    if(count == k){
-                        return res;
-                    }
-                }
-            }
-        }
+    public static int[] topKFrequent(int[] nums, int k) {
+        int min=Integer.MAX_VALUE; 
+        int max=Integer.MIN_VALUE; 
+        for(int num:nums) { 
+            if(num>max)max=num; 
+            if(num<min)min=num; 
+        } 
+        int[] freq=new int[max-min+1]; 
+        int highFreq=0; 
+        for(int i:nums) { 
+            int idx=i-min; 
+            int count=++freq[idx]; 
+            if(count>highFreq)
+            highFreq=count; 
+        } 
+        List<Integer>[] bucketList=new ArrayList[highFreq]; 
+        for(int i=0;i<freq.length;i++) { 
+            int freqIdx =freq[i]-1; 
+            if(freqIdx ==-1)continue; 
+            if(bucketList[freqIdx]==null) bucketList[freqIdx ]=new ArrayList<>(); 
+            bucketList[freqIdx ].add(i+min); 
+        } 
+        int[] res=new int[k]; 
+        int idx=0; 
+        for (int i=highFreq-1;i>=0;i--) { 
+            if(bucketList[i]==null)continue; 
+            for(int num:bucketList[i]) { 
+                res[idx++]=num; 
+                if(idx==k)return res; 
+            } 
+        } 
         return res;
+    }
+    static {
+        int[] input = {1, 1, 2, 2, 3};
+        for (int i = 0; i < 200; i++) {
+            topKFrequent(input, 2);
+        }
     }
 }

@@ -1,21 +1,24 @@
 class Solution {
     public int[] arrayRankTransform(int[] arr) {
-        int[] sorted = arr.clone();
-        Arrays.sort(sorted);
-
-        HashMap<Integer, Integer> rankMap = new HashMap<>();
+        HashMap<Integer,Integer> map=new HashMap<>();
+        // cpoy array nums
+        int[] nums=new int[arr.length];
+        for(int i=0;i<arr.length;i++){
+            nums[i]=arr[i];
+        }
+        Arrays.sort(nums); // sort array nums
 
         int rank = 1;
-        for(int num: sorted){
-            if(!rankMap.containsKey(num)){
-                rankMap.put(num, rank);
+        for(int i=0;i<nums.length;i++){
+            if(!map.containsKey(nums[i])){
+                map.put(nums[i],rank);
                 rank++;
             }
         }
-        int [] result = new int[arr.length];
-        for(int i=0; i<arr.length; i++){
-            result[i] = rankMap.get(arr[i]);
+        // replace copy array to rank map
+        for(int i=0;i<arr.length;i++){
+            nums[i]=map.get(arr[i]);
         }
-        return result;
+        return nums;
     }
 }

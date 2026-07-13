@@ -2,10 +2,7 @@ class Solution {
     public int[] arrayRankTransform(int[] arr) {
         HashMap<Integer,Integer> map=new HashMap<>();
         // cpoy array nums
-        int[] nums=new int[arr.length];
-        for(int i=0;i<arr.length;i++){
-            nums[i]=arr[i];
-        }
+        int[] nums= arr.clone();
         Arrays.sort(nums); // sort array nums
 
         int rank = 1;

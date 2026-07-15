@@ -15,23 +15,32 @@
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        dfs(root, 0, result);
+        ArrayList<Integer> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while(!q.isEmpty()){
+            int level = q.size();
+            for(int i=0; i<level; i++){
+                TreeNode temp = q.poll();
+                
+                if(i == level -1){
+                    result.add(temp.val);
+                }
+                // Enqueue left node
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+                // Enqueue right node
+                if(temp.right != null){
+                    q.add(temp.right);
+                }
+            }
+        }
         return result;
-    }
-    
-    private void dfs(TreeNode node, int depth, List<Integer> result) {
-        if (node == null) {
-            return;
-        }
-        
-        // If this is the first time we've reached this depth, add the node
-        if (depth == result.size()) {
-            result.add(node.val);
-        }
-        
-        // Crucial: Go RIGHT first, then LEFT
-        dfs(node.right, depth + 1, result);
-        dfs(node.left, depth + 1, result);
     }
 }

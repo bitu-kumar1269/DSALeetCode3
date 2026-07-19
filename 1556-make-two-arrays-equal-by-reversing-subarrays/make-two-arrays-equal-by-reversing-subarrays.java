@@ -1,8 +1,17 @@
 class Solution {
     public boolean canBeEqual(int[] target, int[] arr) {
-        Arrays.sort(target);
-        Arrays.sort(arr);
+        int[] freq = new int[1001];
 
-        return Arrays.equals(target, arr);
+        for(int i=0; i< target.length; i++){
+            freq[target[i]]++;
+            freq[arr[i]]--;
+        }
+
+        for(int cnt: freq){
+            if(cnt != 0){
+                return false;
+            }
+        }
+        return true;
     }
 }
